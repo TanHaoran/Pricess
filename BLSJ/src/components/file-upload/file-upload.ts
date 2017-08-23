@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { RequestOptions, Headers} from '@angular/http';
 import {ToastController,IonicPage} from 'ionic-angular';
 import {Util} from '../../providers/common/util';

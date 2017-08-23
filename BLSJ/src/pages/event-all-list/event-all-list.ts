@@ -133,6 +133,7 @@ export class EventAllListPage {
         }
       }, err => {
         // this.tableData = [];
+        console.log('NETerr');
         this.hideList = true;
       });
     }

@@ -1,0 +1,24 @@
+page-event-report {
+	ion-col {
+		height: 25%;
+		margin: 10px auto;
+		div{
+			margin: 5px auto;
+			text-align: center;
+		}
+		.img-outer{
+			height:100px;
+			position: relative;
+		}
+		img{
+			height: 100px;
+			width: 100px;
+			margin: auto;
+			position: absolute; 
+			top: 0; 
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+}

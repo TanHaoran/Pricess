@@ -1,0 +1,18 @@
+<ion-list>
+	<ion-item>
+		<ion-label>附件<span style="color: #999;margin-left: 1rem">请上传word,excel文件</span></ion-label>
+	</ion-item>
+	<ion-item>
+		<button color="light" ion-button large>+
+		<input type="file" name="fileToUpload" ng-model="fileToUpload" id="fileToUpload" style="height: 36px,width: 36px;position:absolute;right:-30px;bottom:15px;opacity:0;" (change)="chooseFile($event)"/>
+		</button>
+    <button ion-button (click)="uploadFile($event)" style="margin-left: 2rem">上传</button>
+	</ion-item>
+  <ion-item *ngFor="let item of fileArr; let i = index">
+    <ion-label>{{item[0].name}}</ion-label>
+    <div *ngIf="uploadFlag" item-end (click)="delFile(i)">删除</div>
+  </ion-item>
+	<!--<ion-item *ngFor="let item of data.FileNameExist">-->
+		<!--<ion-label >{{item.FileNameUser}}已上传</ion-label>-->
+	<!--</ion-item>-->
+</ion-list>

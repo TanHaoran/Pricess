@@ -1,0 +1,7 @@
+
+<ion-item>
+	<ion-label>{{title}}</ion-label>
+<!-- 	<div item-content *ngIf="data.isChecked">{{toggleT}}</div><div item-content *ngIf="!data.isChecked">{{toggleF}}</div> -->
+	<ion-toggle [(ngModel)]="data.isChecked" (click)="toggle()" (ngModelChange)="changeModel()" #toggleReverse checked></ion-toggle>
+</ion-item>
+

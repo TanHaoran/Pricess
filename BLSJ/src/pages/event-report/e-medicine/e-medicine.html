@@ -1,0 +1,149 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>给药事件</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--发生时间-->
+  <ion-list>
+    <ion-item>
+      <ion-label>发生时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="gyData.HappenedDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <!--患者信息-->
+  <ion-list>
+    <ion-item >
+      <ion-label>患者住院号</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请输入患者住院号" [(ngModel)]="gyData.HospNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>患者性别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.PatientSex">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientSex">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>患者年龄</ion-label>
+      <ion-input class="right-input" type="number" placeholder="请输入患者年龄" max="4" [(ngModel)]="gyData.PatientAge" (keypress)="removeE($event)" (keyup)="onlyNumber(gyData,'PatientAge')"></ion-input>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="gyData.PatientAgeUnit">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientAgeUnit">{{item.ECodeTag}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>护理级别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.NursLevel">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.nurseLevel">{{item.ECodeTag}}级</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="patient-diagnose">
+      <ion-label>患者诊断</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写患者诊断" [(ngModel)]="gyData.Diagnosis"></textarea>
+      <div style="font-size: 12px;color: #999;">多个诊断之间用逗号隔开</div>
+    </div>
+  </ion-list>
+  <!--事件明细-->
+  <ion-list>
+    <ion-item>
+      <ion-label>实施单剂量摆药</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.PutDrugs" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>静配中心配药</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.Dispensation" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>信息化管理（PDA）</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.PDAState" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>事件类别</ion-label>
+      <button ion-button small *ngIf="!isShowMeventPanel" (click)="showPanel()" item-end>+</button>
+    </ion-item>
+  </ion-list>
+  <m-event-category-panel *ngIf="isShowMeventPanel" [mEventInfo]="mEventInfo"  [dataSource] = "dataSource" (insertItem)="insertMevent()"></m-event-category-panel>
+  <m-event-category-list  [mEventCategoryList]= "mEventCategoryList"></m-event-category-list>
+
+
+  <!--事件描述-->
+  <ion-list>
+    <div class="event-dec">
+      <ion-label>事件描述</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写事件描述" [(ngModel)]="gyData.EventDescription"></textarea>
+    </div>
+  </ion-list>
+  <!--事件等级-->
+  <ion-list>
+    <ion-item>
+      <ion-label>事件等级</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.EventLevel">
+        <ion-option  *ngFor="let item of dataSource.eventLevel" value="{{item.ECodeValue}}">{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let item of dataSource.eventLevel">
+      <div class="event-explain" *ngIf="item.ECodeValue === gyData.EventLevel">{{item.desc}}</div>
+    </div>
+  </ion-list>
+  <!--当事人-->
+  <ion-list>
+    <ion-item>
+      <ion-label>当事人类别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.StaffType" (ngModelChange)="clearOther('StaffType','StaffTypeQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.staffType">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="gyData.StaffType==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="gyData.StaffTypeQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人职称</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.StaffPosition">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.position">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人学历</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.StaffEducation" (ngModelChange)="clearOther('StaffEducation','StaffEduQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.education">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="gyData.StaffEducation==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="gyData.StaffEduQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人工龄</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="gyData.StaffWorkyears">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.workYear">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>当日床位使用率</ion-label>
+      <ion-input class="right-input" type="text" placeholder="当日床位使用率" [(ngModel)]="gyData.BedUtilization"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当日实际床护比</ion-label>
+      <ion-input class="right-input" type="text" placeholder="当日实际床护比" [(ngModel)]="gyData.BedNurseRatio"></ion-input>
+    </ion-item>
+  </ion-list>
+  <!--文件上传-->
+<!--   <button ion-button full (click)="submit()">提交</button> -->
+
+<file-upload [data]  = "gyData"></file-upload>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" (click)="submit()">提交</button>
+</ion-content>

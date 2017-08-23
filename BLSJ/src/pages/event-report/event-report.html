@@ -1,0 +1,77 @@
+<ion-header>
+
+  <ion-navbar color="primary" hideBackButton="true" *ngIf="showBack">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>护理不良事件上报</ion-title>
+  </ion-navbar>
+  <ion-navbar color="primary" *ngIf="!showBack">
+    <ion-title>护理不良事件上报</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+	<ion-grid>
+		<ion-row>
+			<ion-col col-6  (click)="goEFall()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_ddsj.png">
+				</div>
+				<div>跌倒事件</div>
+			</ion-col>
+			<ion-col col-6 (click)="goEFallBed()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_acsj.png">
+				</div>
+				<div>坠床事件</div>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col col-6 (click)="goETube()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_glht.png">
+				</div>
+				<div>管路滑脱</div>
+			</ion-col>
+			<ion-col col-6 (click)="goEMedicine()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_gysj.png">
+				</div>
+				<div>给药事件</div>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col col-6 (click)="goPressureUlcers()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_ycpg.png">
+				</div>
+				<div>压疮评估</div>
+			</ion-col>
+			<ion-col col-6 (click)="goOccupationExpose()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_zybl.png">
+				</div>
+				<div>职业暴露</div>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col col-6 (click)="goOther()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_qtsj.png">
+				</div>
+				<div>其他事件</div>
+			</ion-col>
+			<ion-col col-6 (click)="goZero()">
+				<div class="img-outer" >
+					<img src="assets/icon/ssb_lsj.png">
+				</div>
+				<div>零事件</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

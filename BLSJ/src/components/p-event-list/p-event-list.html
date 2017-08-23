@@ -1,0 +1,36 @@
+  <ion-list *ngFor="let item of pEventList; let i = index">
+       <ion-item>
+       <!-- <button ion-button small (click)="delPanel(i)" item-end>×</button> -->
+       <ion-icon name="close" color="danger" item-end (click)="delPanel(i)"></ion-icon>
+     </ion-item>
+    <ion-item >
+      <ion-label>压疮部位</ion-label>
+      <ion-input class="right-input" type="text" placeholder="压疮部位" [(ngModel)]="item.PartsName"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>长(cm)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="测量的长度" [(ngModel)]="item.MeterLength"></ion-input>
+      </ion-item>
+    <ion-item>
+    <ion-label>宽(cm)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="测量的宽度" [(ngModel)]="item.MeterWidth"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label>深(cm)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="测量的深度" [(ngModel)]="item.MeterHeight"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>潜行(可不填写)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="方向(指针)" [(ngModel)]="item.QhPoint"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>深度(cm)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="深度" [(ngModel)]="item.QhDepth"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label>分期</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="item.Staging">
+        <ion-option value="{{instalment.ECodeValue}}" *ngFor="let instalment of dataSource.period">{{instalment.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    </ion-list>

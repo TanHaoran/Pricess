@@ -1,0 +1,120 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>其他事件</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--发生时间-->
+  <ion-list>
+    <ion-item>
+      <ion-label>类别细分</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="otherData.DetailType"  (ngModelChange)="clearOther('DetailType','DetailTypeQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.eventOtherType">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="otherData.DetailType==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="otherData.DetailTypeQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>发生时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="otherData.HappenedDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <!--患者信息-->
+  <ion-list>
+    <ion-item >
+      <ion-label>患者住院号</ion-label>
+      <ion-input class="right-input" type="number" placeholder="请输入患者住院号" [(ngModel)]="otherData.HospNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>患者性别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="otherData.PatientSex">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientSex">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>患者年龄</ion-label>
+      <ion-input class="right-input" type="number" placeholder="请输入患者年龄" max="4" [(ngModel)]="otherData.PatientAge" (keypress)="removeE($event)" (keyup)="onlyNumber(otherData,'PatientAge')"></ion-input>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.PatientAgeUnit">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientAgeUnit">{{item.ECodeTag}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>护理级别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="otherData.NursLevel">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.nurseLevel">{{item.ECodeTag}}级</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="patient-diagnose">
+      <ion-label>患者诊断</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写患者诊断" [(ngModel)]="otherData.Diagnosis"></textarea>
+      <div style="font-size: 12px;color: #999;">多个诊断之间用逗号隔开</div>
+    </div>
+  </ion-list>
+  <!--事件描述-->
+  <ion-list>
+    <div class="event-dec">
+      <ion-label>事件描述</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写事件描述" [(ngModel)]="otherData.EventDescription"></textarea>
+    </div>
+  </ion-list>
+  <!--事件等级-->
+  <ion-list *ngIf="otherData.DetailType=='162'||otherData.DetailType=='163'||otherData.DetailType=='164'||otherData.DetailType=='165'||otherData.DetailType=='166'||otherData.DetailType=='167'||otherData.DetailType=='168'||otherData.DetailType=='112'">
+    <ion-item>
+      <ion-label>事件等级</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.EventLevel">
+        <ion-option *ngFor="let item of dataSource.eventLevel" value="{{item.ECodeValue}}">{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let item of dataSource.eventLevel">
+      <div class="event-explain" *ngIf="item.ECodeValue === otherData.EventLevel">{{item.desc}}</div>
+    </div>
+  </ion-list>
+  <!--当事人信息-->
+  <ion-list *ngIf="otherData.DetailType=='162'||otherData.DetailType=='163'||otherData.DetailType=='164'||otherData.DetailType=='165'||otherData.DetailType=='166'||otherData.DetailType=='167'||otherData.DetailType=='168'||otherData.DetailType=='112'">
+    <ion-item>
+      <ion-label>当事人类别</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.StaffType" (ngModelChange)="clearOther('StaffType','StaffTypeQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.staffType">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="otherData.StaffType==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="otherData.StaffTypeQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人职称</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.StaffPosition">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.position">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人学历</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.StaffEducation" (ngModelChange)="clearOther('StaffEducation','StaffEduQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.education">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="otherData.StaffEducation==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="otherData.StaffEduQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人工龄</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="otherData.StaffWorkyears">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.workYear">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!--文件上传-->
+<file-upload [data]  = "otherData"></file-upload>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" (click)="submit()">提交</button>
+</ion-content>

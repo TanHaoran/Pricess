@@ -1,0 +1,23 @@
+ion-text-toggle {
+  .toggle-icon{
+    color: #fff !important;
+    padding-left: 5px !important;
+    line-height: 35px;
+  }
+  .toggle-inner{
+    color: #999999 !important;
+    text-align: center !important;
+    line-height: 30px !important;
+  }
+  .toggle-ios.toggle-checked .toggle-icon {
+    background-color: #e6e6e6;
+    // background-color: #48a2f8;
+  }
+  .toggle-ios .toggle-icon::before{
+    background-color: #48a2f8 !important;
+  }
+  .toggle-ios .toggle-icon{
+    background-color: #48a2f8 ;
+  }
+
+}

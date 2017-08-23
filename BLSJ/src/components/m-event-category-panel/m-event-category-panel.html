@@ -1,0 +1,144 @@
+<ion-list >
+	<ion-item>事件类别插入面板</ion-item>
+	<ion-item>
+		<ion-label>选择插入类别</ion-label>
+		<ion-select  cancelText="取消" okText="确定" [(ngModel)]="mEventInfo.ECodeValue" (ngModelChange)="clearOtherMedicine('ECodeValue','ECodeValueQt')">
+			<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.mEventType">{{item.ECodeTag}}</ion-option>
+		</ion-select>
+	</ion-item>
+	<div *ngIf="mEventInfo.ECodeValue==='1'">
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>错误名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="错误名称" [(ngModel)]="mEventInfo.content.wrongName"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>医嘱给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.mPath" (ngModelChange)="clearOtherMedicineContent('mPath','mPathQt')">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay"  >{{item.ECodeTag}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item *ngIf="mEventInfo.content.mPath==='112'">
+			<ion-label>其他</ion-label>
+			<ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="mEventInfo.content.mPathQt"></ion-input>
+		</ion-item>
+	</div>
+	<div *ngIf="mEventInfo.ECodeValue==='2'">
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>医嘱剂量</ion-label>
+			<ion-input class="right-input" type="text" placeholder="医嘱剂量" [(ngModel)]="mEventInfo.content.dAdviceDose"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>错误剂量</ion-label>
+			<ion-input class="right-input" type="text" placeholder="错误剂量" [(ngModel)]="mEventInfo.content.wrongDose"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>医嘱给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.mPath" (ngModelChange)="clearOtherMedicineContent('mPath','mPathQt')">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay"  >{{item.ECodeTag}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item *ngIf="mEventInfo.content.mPath==='112'">
+			<ion-label>其他</ion-label>
+			<ion-input class="right-input" type="错误名称" placeholder="请填写" [(ngModel)]="mEventInfo.content.mPathQt"></ion-input>
+		</ion-item>
+	</div>
+	<div *ngIf="mEventInfo.ECodeValue==='3'">
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>医嘱给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.dAdvicePath" (ngModelChange)="clearOtherMedicineContent('dAdvicePath','dAdvicePathQt')">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay"  >{{item.ECodeTag}}</ion-option>
+			</ion-select>
+    </ion-item>
+      <ion-item *ngIf="mEventInfo.content.dAdvicePath==='112'">
+        <ion-label>其他</ion-label>
+        <ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="mEventInfo.content.dAdvicePathQt"></ion-input>
+      </ion-item>
+
+		<ion-item>
+			<ion-label>错误给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.wrongPath" (ngModelChange)="clearOtherMedicineContent('wrongPath','wrongPathQt')">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay"  >{{item.ECodeTag}}</ion-option>
+			</ion-select>
+		</ion-item>
+    <ion-item *ngIf="mEventInfo.content.wrongPath==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="mEventInfo.content.wrongPathQt"></ion-input>
+    </ion-item>
+	</div>
+	<div *ngIf="mEventInfo.ECodeValue==='4'">
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>医嘱时间</ion-label>
+			<ion-datetime displayFormat="YYYY-MM-DD HH:mm"  max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="mEventInfo.content.dAdviceTime" cancelText="取消" doneText="确认"></ion-datetime>
+		</ion-item>
+		<ion-item >
+			<ion-label>错误时间</ion-label>
+			<ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="mEventInfo.content.wrongTime" cancelText="取消" doneText="确认"></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-label>医嘱给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.mPath">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay"  >{{item.ECodeTag}}</ion-option>
+			</ion-select>
+		</ion-item>
+    <ion-item *ngIf="mEventInfo.content.mPath==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="mEventInfo.content.mPathQt"></ion-input>
+    </ion-item>
+	</div>
+	<div *ngIf="mEventInfo.ECodeValue==='5'">
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>医嘱频次</ion-label>
+			<ion-input class="right-input" type="text" placeholder="医嘱频次" [(ngModel)]="mEventInfo.content.dAdviceNum"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>错误频次</ion-label>
+			<ion-input class="right-input" type="text" placeholder="错误频次" [(ngModel)]="mEventInfo.content.wrongNum"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>医嘱给药途径</ion-label>
+			<ion-select  cancelText="取消" okText="确定"  [(ngModel)]="mEventInfo.content.mPath" (ngModelChange)="clearOtherMedicineContent('mPath','mPathQt')">
+				<ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.drugWay">{{item.ECodeTag}}</ion-option>
+			</ion-select>
+		</ion-item>
+    <ion-item *ngIf="mEventInfo.content.mPath==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" [(ngModel)]="mEventInfo.content.mPathQt"></ion-input>
+    </ion-item>
+
+	</div>
+	<div *ngIf="mEventInfo.ECodeValue==='112'">
+    <ion-item >
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="类别名称" [(ngModel)]="mEventInfo.ECodeValueQt"></ion-input>
+    </ion-item>
+		<ion-item >
+			<ion-label>药物名称</ion-label>
+			<ion-input class="right-input" type="text" placeholder="药物名称" [(ngModel)]="mEventInfo.content.mName"></ion-input>
+		</ion-item>
+		<ion-item >
+			<ion-label>事件描述</ion-label>
+			<ion-input class="right-input" type="text" placeholder="事件描述" [(ngModel)]="mEventInfo.content.desc"></ion-input>
+		</ion-item>
+	</div>
+	<ion-item *ngIf="mEventInfo.ECodeValue!=='0'"><button ion-button small item-end (click)="insertToList()">确定</button></ion-item>
+</ion-list>

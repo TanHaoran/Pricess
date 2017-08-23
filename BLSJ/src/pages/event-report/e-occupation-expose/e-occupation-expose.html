@@ -1,0 +1,132 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>职业暴露</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--发生时间-->
+  <ion-list>
+    <ion-item>
+      <ion-label>发生时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="zyblData.HappenedDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <!--接触患者-->
+  <ion-list>
+    <ion-item>
+      <ion-label>是否接触患者</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.TouchPatient" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="zyblData.TouchPatient=='105'">
+      <ion-label>患者住院号</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请输入患者住院号" [(ngModel)]="zyblData.HospNumber"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="zyblData.TouchPatient=='105'">
+      <ion-label>患者情况</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.PatientExpose" (ngModelChange)="showDrug()">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientExpose">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="zyblData.PatientExpose==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="zyblData.PatientExposeQt" ></ion-input>
+    </ion-item>
+  </ion-list>
+  <!--暴露方式-->
+  <ion-list>
+    <ion-item>
+      <ion-label>暴露方式</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.ExposeTypeOne" (ngModelChange)="clearOther('ExposeTypeOne','ExposeTypeOneQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.exposeTypeOne">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="zyblData.ExposeTypeOne==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="zyblData.ExposeTypeOneQt" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>损伤程度</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.HarmDegree" (ngModelChange)="clearHurtOther('HarmDegree','DegreeDamage')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.harmDegree">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>污染物来源</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.FomesFrom">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.fomesFrom">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>预防性用药</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.PharmacyState" >
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label>使用的药物</ion-label>
+      <span>开始使用时间</span>
+    </ion-item>
+    <ion-item *ngFor="let item of medList"  [ngClass]="{tagChecked:item.isChecked}">
+    <ion-label>{{item.UseDrugName}}</ion-label>
+      <ion-checkbox [(ngModel)]="item.isChecked"></ion-checkbox>
+      <ion-datetime class="shortTime" displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm"  [(ngModel)]="item.UseDrugTime" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="medList[7] && medList[7].isChecked === true ">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="zyblData.UseDrugQt" ></ion-input>
+    </ion-item>
+  </ion-list>
+  <!--事件描述-->
+  <ion-list>
+    <div class="event-dec">
+      <ion-label>事件描述</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写事件描述" [(ngModel)]="zyblData.EventDescription"></textarea>
+    </div>
+  </ion-list>
+  <!--当事人-->
+  <ion-list>
+    <ion-item>
+      <ion-label>当事人类别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.StaffType" (ngModelChange)="clearOther('StaffType','StaffTypeQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.staffType">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="zyblData.StaffType==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="zyblData.StaffTypeQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人职称</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.StaffPosition">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.position">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人学历</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.StaffEducation" (ngModelChange)="clearOther('StaffEducation','StaffEduQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.education">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="zyblData.StaffEducation==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="zyblData.StaffEduQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人工龄</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="zyblData.StaffWorkyears">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.workYear">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!--文件上传-->
+<file-upload [data]  = "zyblData"></file-upload>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" (click)="submit()">提交</button>
+</ion-content>

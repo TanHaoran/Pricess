@@ -1,0 +1,211 @@
+
+ion-content {
+	background : color($colors, panel) !important;
+}
+
+ion-label {
+	color: #333333 !important;
+}
+.unsubmit{
+  background: #999999 !important;
+}
+
+.checkTag{
+	display: inline-block !important;
+	div{
+		margin: 5px;
+		padding: 5px 15px;
+		border: 1px solid #cecdcd;
+		border-radius: 5px;
+    background: #f8f8f8;
+    font-size: 1.7rem;
+	}
+  color: #999999;
+}
+.checkPanel{
+  padding: 10px;
+  background: #ffffff;
+  border-bottom: 0.55px solid #c8c7cc;
+}
+
+
+.shortTime  {
+	button{
+		width: 200px !important;
+	}
+
+	.item-cover {
+		right: 0 !important;
+		left: 60% !important;
+	}
+}
+
+.shortInput {
+    .input-cover {
+      width: 50%;
+      right: 0 !important;
+      left: 70% !important;
+    };
+  z-index: 99;
+  }
+.shortRInput {
+    .input-cover {
+      width: 30%;
+      right: 0 !important;
+      left: 70% !important;
+    };
+  z-index: 99;
+  }
+.shortMInput {
+    .input-cover {
+      width: 30%;
+      right: 0 !important;
+      left: 40% !important;
+    };
+  z-index: 99;
+  }
+
+
+.tagChecked{
+	background: color($colors, panel) !important;
+  color:#48a2f8 !important;
+  border-color: #48a2f8 !important;
+}
+
+ion-card{
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+	width: 100% !important;
+}
+
+
+.qt{
+	//position: absolute !important;
+	//display: inline-block !important;
+  //padding-right: 14px !important;
+	//div{
+	//	display: none;
+	//	width: 80%;
+	//}
+  //input{
+  //  padding: 7px;
+  //  margin-right: 16px;
+  //  border: 0.55px solid #c8c7cc !important;
+  //  border-radius: 3px;
+  //  background: #f8f8f8 !important;
+  //}
+	//left: 10px;
+
+}
+html{
+  font-family:inherit !important;//设置字体跟随系统
+}
+.other{
+  width: 100%;
+  padding: 7px;
+  border: 0.55px solid #c8c7cc;
+  border-radius: 3px;
+  outline: none;
+  margin-left: 5px;
+  font-size: 1.7rem;
+}
+.right-input :-moz-placeholder
+{
+  text-align: right;
+}
+.right-input ::-moz-placeholder
+{
+  text-align: right;
+}
+.right-input ::-webkit-input-placeholder
+{
+  text-align: right;
+}
+.right-input -webkit-input{
+  text-align: right !important;
+}
+.right-input input{
+  text-align: right !important;
+}
+.list-ios{
+  margin: -1px 0 20px;
+  background: #ffffff;
+}
+
+.event-dec{
+  border-top: 0.55px solid #c8c7cc;
+  border-bottom: 0.55px solid #c8c7cc;
+  padding: 0px 16px 10px 16px;
+  font-size: 17px;
+}
+.patient-diagnose{
+  border-bottom: 0.55px solid #c8c7cc;
+  padding: 0px 16px 10px 16px;
+  font-size: 17px;
+}
+//文字较多时改用自定义高度div
+.words-wrap{
+  border-bottom: 0.55px solid #c8c7cc;
+  padding: 0px 16px 10px 16px;
+  font-size: 17px;
+}
+//添加类别多的时候用
+.paper-wrap{
+  border-top: 0.55px solid #c8c7cc;
+  border-bottom: 0.55px solid #c8c7cc;
+  padding: 0px 16px 10px 16px;
+  font-size: 17px;
+  margin-top: 15px;
+}
+.line-wrap{
+  border-bottom: 0.55px solid #c8c7cc;
+  margin-bottom: 10px;
+}
+//多行文本样式
+.multi-text{
+  width: 100%;
+  padding: 5px 10px !important;
+  min-height: 70px;
+  resize: none;
+  border-radius: 2px;
+  font-size: 15px;
+  border-color: #c8c7cc;
+  overflow-y: auto;
+}
+.many-words{
+  width: 100%;
+  padding: 5px 10px !important;
+  min-height: 40px;
+  border: 0.5px solid #c8c7cc;
+  border-radius: 2px;
+  font-size: 15px;
+  word-wrap: break-word;
+}
+.event-explain{
+  padding: 1rem;
+  border-bottom: 0.55px solid #c8c7cc;color: #999;
+}
+//灰色字体
+.font-gray{
+  color: #999999 !important;
+}
+.button-full-ios{
+  margin: 0.4rem 2%;
+  border-radius: 3px;
+}
+.button-full{
+  width: 96%;
+}
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.

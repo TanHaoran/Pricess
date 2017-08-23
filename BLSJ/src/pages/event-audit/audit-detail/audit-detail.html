@@ -1,0 +1,821 @@
+<!--
+  Generated template for the AuditDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{EveresItem.EveresName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <!--查看权限查看审核状态-->
+    <ion-item *ngIf="showAuditState">
+    <h2>审核结果</h2>
+    <div item-end>{{EveresItem.ExamineState}}</div>
+    </ion-item>
+    <!--公用上报时间、上报人-->
+    <ion-item *ngIf="EveresItem.EveresCode == '150'">
+      <h2>类别细分</h2>
+      <div item-end>{{modalData.DetailType}}</div>
+    </ion-item>
+    <ion-item>
+      <h2>发生时间</h2>
+      <div item-end>{{modalData.HappenedDate}}</div>
+    </ion-item>
+    <ion-item>
+      <h2>事件编号</h2>
+      <div item-end>{{EveresItem.EveresId}}</div>
+    </ion-item>
+    <ion-item *ngIf="EveresItem.EveresCode == '149'">
+      <h2>发生来源</h2>
+      <div item-end>{{modalData.Occurrence}}</div>
+    </ion-item>
+    <ion-item *ngIf="EveresItem.EveresCode == '156'">
+      <h2>是否接触病人</h2>
+      <div item-end>{{modalData.TouchPatient}}</div>
+    </ion-item>
+    <ion-item>
+      <h2>上报人</h2>
+      <div item-end>{{modalData.FillStaff}}</div>
+    </ion-item>
+  </ion-list>
+  <!--具体事件分类-->
+  <!--压疮事件-->
+  <div *ngIf="EveresItem.EveresCode == '149'">
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者性别</h2>
+        <div item-end>{{modalData.PatientSex}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者年龄</h2>
+        <div item-end>{{modalData.PatientAge}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>护理级别</h2>
+        <div item-end>{{modalData.NursLevel}}级</div>
+      </ion-item>
+      <div class="patient-diagnose">
+        <ion-label>患者诊断</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.Diagnosis}}</textarea>
+      </div>
+      <ion-item>
+        <h2>身高(cm)</h2>
+        <div item-end>{{modalData.PatientHeight}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>体重(kg)</h2>
+        <div item-end>{{modalData.PatientWeight}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>血红蛋白(g/L)</h2>
+        <div item-end>{{modalData.HemoglobinNum}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>白蛋白(g/L)</h2>
+        <div item-end>{{modalData.AlbuminNum}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>是否水肿</h2>
+        <div item-end>{{modalData.IsEdema}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>评估时间</h2>
+        <div item-end>{{modalData.EvaluateDate}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>评估分值</h2>
+        <div item-end>{{modalData.EvaluateScore}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>评估量表</h2>
+        <div item-end>{{modalData.Assessment}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>是否高危</h2>
+        <div item-end>{{modalData.HighRiskLevel}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>高危等级</h2>
+        <div item-end>{{modalData.Highriskgrade}}</div>
+      </ion-item>
+      <div class="words-wrap">
+        <ion-label>采取防范</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.IsTakePrevent">{{modalData.IsTakePrevent}}</div>
+      </div>
+    </ion-list>
+    <ion-list *ngFor="let item of modalData.Parts;let i=index">
+      <ion-item>
+        <h2>压疮部位</h2>
+      </ion-item>
+      <ion-item>
+        <h2>部位名称</h2>
+        <div item-end>{{item.PartsName}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>长度(cm)</h2>
+        <div item-end>{{item.MeterLength}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>宽度(cm)</h2>
+        <div item-end>{{item.MeterWidth}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>深度(cm)</h2>
+        <div item-end>{{item.MeterHeight}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>潜行方向(指针)</h2>
+        <div item-end>{{item.QhPoint}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>潜行深度(cm)</h2>
+        <div item-end>{{item.QhDepth}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>分期</h2>
+        <div item-end>{{item.Staging}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>转归</h2>
+        <div item-end>{{item.Staging}}</div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--其他事件-->
+  <div *ngIf="EveresItem.EveresCode == '150'">
+    <!--住院号、患者信息-->
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者性别</h2>
+        <div item-end>{{modalData.PatientSex}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者年龄</h2>
+        <div item-end>{{modalData.PatientAge}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>护理级别</h2>
+        <div item-end>{{modalData.NursLevel}}级</div>
+      </ion-item>
+      <div class="patient-diagnose">
+        <ion-label>患者诊断</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.Diagnosis}}</textarea>
+      </div>
+    </ion-list>
+    <!--事件描述-->
+    <ion-list>
+      <div class="event-dec">
+        <ion-label>事件描述</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.EventDescription}}</textarea>
+      </div>
+    </ion-list>
+    <!--事件等级-->
+    <ion-list>
+      <ion-item>
+        <h2>事件等级</h2>
+        <div item-end>{{modalData.EventLevel}}</div>
+      </ion-item>
+    </ion-list>
+    <!--当事人信息-->
+    <ion-list>
+      <ion-item>
+        <h2>当事人类别</h2>
+        <div item-end>{{modalData.StaffType}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人职称</h2>
+        <div item-end>{{modalData.StaffPosition}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人学历</h2>
+        <div item-end>{{modalData.StaffEducation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人工龄</h2>
+        <div item-end>{{modalData.StaffWorkyears}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--跌倒坠床-->
+  <div *ngIf="EveresItem.EveresCode == '152'">
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者性别</h2>
+        <div item-end>{{modalData.PatientSex}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者年龄</h2>
+        <div item-end>{{modalData.PatientAge}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>护理级别</h2>
+        <div item-end>{{modalData.NursLevel}}级</div>
+      </ion-item>
+      <div class="patient-diagnose">
+        <ion-label>患者诊断</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.Diagnosis}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>评估时间</h2>
+        <div item-end>{{modalData.EvaluateDate}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>评估分值</h2>
+        <div item-end>{{modalData.EvaluateScore}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>是否高危</h2>
+        <div item-end>{{modalData.IsEvaluate}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>采取防范</h2>
+        <div item-end>{{modalData.IsTakePrevent}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>跌/坠位置</h2>
+        <div item-end>{{modalData.DzPlace}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>跌/坠状态</h2>
+        <div item-end>{{modalData.DzState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>精神状态</h2>
+        <div item-end>{{modalData.MentalState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>自理能力</h2>
+        <div item-end>{{modalData.SelfcareState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>伤害程度</h2>
+        <div item-end>{{modalData.Degreeinjury}}</div>
+      </ion-item>
+      <div class="words-wrap">
+        <ion-label>危险因素</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.DzHazards">{{modalData.DzHazards}}</div>
+      </div>
+      <ion-item>
+        <h2>跌/坠史</h2>
+        <div item-end>{{modalData.DzHistory}}</div>
+      </ion-item>
+      <div class="words-wrap">
+        <ion-label>使用药物</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.UseDrug">{{modalData.UseDrug}}</div>
+      </div>
+      <ion-item>
+        <h2>地面情况</h2>
+        <div item-end>{{modalData.GroundState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>室内光线</h2>
+        <div item-end>{{modalData.IndoorState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>有人陪护</h2>
+        <div item-end>{{modalData.EscortState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>约束</h2>
+        <div item-end>{{modalData.Restrain}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>床栏使用</h2>
+        <div item-end>{{modalData.BedColumnUse}}</div>
+      </ion-item>
+      <div class="words-wrap">
+        <ion-label>造成伤害</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.UseDrug">{{modalData.Parts}}</div>
+      </div>
+      <div class="words-wrap">
+        <ion-label>跌/坠处理</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.DzHandle">{{modalData.DzHandle}}</div>
+      </div>
+    </ion-list>
+    <ion-list>
+      <div class="event-dec">
+        <ion-label>事件描述</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.EventDescription}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>事件等级</h2>
+        <div item-end>{{modalData.EventLevel}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>当事人类别</h2>
+        <div item-end>{{modalData.StaffType}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人职称</h2>
+        <div item-end>{{modalData.StaffPosition}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人学历</h2>
+        <div item-end>{{modalData.StaffEducation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人工龄</h2>
+        <div item-end>{{modalData.StaffWorkyears}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--管路事件-->
+  <div *ngIf="EveresItem.EveresCode == '153'">
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者性别</h2>
+        <div item-end>{{modalData.PatientSex}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者年龄</h2>
+        <div item-end>{{modalData.PatientAge}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>护理级别</h2>
+        <div item-end>{{modalData.NursLevel}}级</div>
+      </ion-item>
+      <div class="patient-diagnose">
+        <ion-label>患者诊断</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.Diagnosis}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>评估时间</h2>
+        <div item-end>{{modalData.EvaluateDate}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>评估分值</h2>
+        <div item-end>{{modalData.EvaluateScore}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>是否高危</h2>
+        <div item-end>{{modalData.IsEvaluate}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>采取防范</h2>
+        <div item-end>{{modalData.IsTakePrevent}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>置管日期</h2>
+        <div item-end>{{modalData.InGlTime}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>管路类型</h2>
+        <div item-end>{{modalData.GlTypeOne}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>固定方法</h2>
+        <div item-end>{{modalData.FixedWay}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>脱管时状态</h2>
+        <div item-end>{{modalData.OutGlState}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>精神状态</h2>
+        <div item-end>{{modalData.MentalState}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>活动能力</h2>
+        <div item-end>{{modalData.ActivityAbility}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>自理能力</h2>
+        <div item-end>{{modalData.SelfcareAbility}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>脱管原因</h2>
+        <div item-end>{{modalData.OutGlReason}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>其他因素</h2>
+        <div item-end>{{modalData.OtherReasons}}</div>
+      </ion-item>
+
+      <ion-item>
+        <h2>重新再置管</h2>
+        <div item-end>{{modalData.ResetGl}}</div>
+      </ion-item>
+
+      <div class="words-wrap">
+        <ion-label>并发症</ion-label>
+        <div class="line-wrap"></div>
+        <div class="many-words" *ngIf="modalData.Complication">{{modalData.Complication}}</div>
+      </div>
+    </ion-list>
+    <ion-list>
+      <div class="event-dec">
+        <ion-label>事件描述</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.EventDescription}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>事件等级</h2>
+        <div item-end>{{modalData.EventLevel}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>类别</h2>
+        <div item-end>{{modalData.StaffType}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>职称</h2>
+        <div item-end>{{modalData.StaffPosition}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>学历</h2>
+        <div item-end>{{modalData.StaffEducation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>工龄</h2>
+        <div item-end>{{modalData.StaffWorkyears}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--给药事件-->
+  <div *ngIf="EveresItem.EveresCode == '155'">
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者性别</h2>
+        <div item-end>{{modalData.PatientSex}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>患者年龄</h2>
+        <div item-end>{{modalData.PatientAge}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>护理级别</h2>
+        <div item-end>{{modalData.NursLevel}}级</div>
+      </ion-item>
+      <div class="patient-diagnose">
+        <ion-label>患者诊断</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.Diagnosis}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>实施单剂量摆药</h2>
+        <div item-end>{{modalData.PutDrugs}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>静配中心配药</h2>
+        <div item-end>{{modalData.Dispensation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>信息化管理</h2>
+        <div item-end>{{modalData.PDAState}}</div>
+      </ion-item>
+      <ion-list>
+        <ion-item>
+          <h2>事件类别</h2>
+        </ion-item>
+
+        <div class="paper-wrap" *ngFor="let item of modalData.mEventCategoryList">
+          <ion-item>
+            <h2>类别</h2>
+            <div item-end>{{item.catogery}}</div>
+            <div item-end *ngIf="item.ECodeValue==='112'">{{item.ECodeValueQt}}</div>
+          </ion-item>
+          <ion-item>
+            <h2>药物名称</h2>
+            <div item-end>{{item.content.mName}}</div>
+          </ion-item>
+          <div *ngIf="item.ECodeValue==='1'">
+            <ion-item>
+              <h2>错误名称</h2>
+              <div item-end>{{item.content.wrongName}}</div>
+            </ion-item>
+            <ion-item no-lines>
+              <h2>给药途径</h2>
+              <div item-end>{{item.content.mPathTag}}</div>
+            </ion-item>
+          </div>
+          <div *ngIf="item.ECodeValue==='2'">
+            <ion-item>
+              <h2>医嘱剂量</h2>
+              <div item-end>{{item.content.dAdviceDose}}</div>
+            </ion-item>
+            <ion-item>
+              <h2>错误剂量</h2>
+              <div item-end>{{item.content.wrongDose}}</div>
+            </ion-item>
+            <ion-item no-lines>
+              <h2>给药途径</h2>
+              <div item-end>{{item.content.mPathTag}}</div>
+            </ion-item>
+          </div>
+          <div *ngIf="item.ECodeValue==='3'">
+            <ion-item>
+              <h2>医嘱给药途径</h2>
+              <div item-end>{{item.content.dAdvicePathTag}}</div>
+            </ion-item>
+            <ion-item no-lines>
+              <h2>错误给药途径</h2>
+              <div item-end>{{item.content.wrongPathTag}}</div>
+            </ion-item>
+          </div>
+          <div *ngIf="item.ECodeValue==='4'">
+            <ion-item>
+              <h2>医嘱时间</h2>
+              <div item-end>{{item.content.dAdviceTime}}</div>
+            </ion-item>
+            <ion-item>
+              <h2>错误时间</h2>
+              <div item-end>{{item.content.wrongTime}}</div>
+            </ion-item>
+            <ion-item no-lines>
+              <h2>给药途径</h2>
+              <div item-end>{{item.content.mPathTag}}</div>
+            </ion-item>
+          </div>
+          <div *ngIf="item.ECodeValue==='5'">
+            <ion-item>
+              <h2>医嘱频次</h2>
+              <div item-end>{{item.content.dAdviceNum}}</div>
+            </ion-item>
+            <ion-item>
+              <h2>错误频次</h2>
+              <div item-end>{{item.content.wrongNum}}</div>
+            </ion-item>
+            <ion-item no-lines>
+              <h2>给药途径</h2>
+              <div item-end>{{item.content.mPathTag}}</div>
+            </ion-item>
+          </div>
+          <div class="words-wrap" style="border: none" *ngIf="item.ECodeValue==='112'">
+            <ion-label>描述信息</ion-label>
+            <div class="line-wrap"></div>
+            <div class="many-words" *ngIf="item.content.desc">{{item.content.desc}}</div>
+          </div>
+
+        </div>
+      </ion-list>
+    </ion-list>
+    <ion-list>
+      <div class="event-dec">
+        <ion-label>事件描述</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.EventDescription}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>事件等级</h2>
+        <div item-end>{{modalData.EventLevel}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>当事人类别</h2>
+        <div item-end>{{modalData.StaffType}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人职称</h2>
+        <div item-end>{{modalData.StaffPosition}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人学历</h2>
+        <div item-end>{{modalData.StaffEducation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人工龄</h2>
+        <div item-end>{{modalData.StaffWorkyears}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>床位率</h2>
+        <div item-end>{{modalData.BedUtilization}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>床护比</h2>
+        <div item-end>{{modalData.BedNurseRatio}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--职业暴露-->
+  <div *ngIf="EveresItem.EveresCode == '156'">
+    <ion-list>
+      <ion-item>
+        <h2>住院号</h2>
+        <div item-end>{{modalData.HospNumber}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>患者情况</h2>
+        <div item-end>{{modalData.PatientExpose}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>暴露方式</h2>
+        <div item-end>{{modalData.ExposeTypeOne}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>损伤程度</h2>
+        <div item-end>{{modalData.HarmDegree}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>污染来源</h2>
+        <div item-end>{{modalData.FomesFrom}}</div>
+      </ion-item>
+      <ion-item no-lines>
+        <h2>预防用药</h2>
+        <div item-end>{{modalData.PharmacyState}}</div>
+      </ion-item>
+      <div class="words-wrap">
+        <ion-label>使用药物</ion-label>
+        <div class="line-wrap"></div>
+        <textarea *ngIf="modalData.UseDrug" class="multi-text" readonly>{{modalData.UseDrug}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <div class="event-dec">
+        <ion-label>事件描述</ion-label>
+        <div class="line-wrap"></div>
+        <textarea class="multi-text" readonly>{{modalData.EventDescription}}</textarea>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <h2>当事人类别</h2>
+        <div item-end>{{modalData.StaffType}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人职称</h2>
+        <div item-end>{{modalData.StaffPosition}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人学历</h2>
+        <div item-end>{{modalData.StaffEducation}}</div>
+      </ion-item>
+      <ion-item>
+        <h2>当事人工龄</h2>
+        <div item-end>{{modalData.StaffWorkyears}}</div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>附件</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let item of modalData.FileName">
+        <h2>{{item.FileNameUser}}</h2>
+        <div item-end>
+          <a href="{{item.FileNameServerPath}}" style="text-decoration: none" download>下载</a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <!--零事件-->
+  <div *ngIf="EveresItem.EveresCode == '151'">
+    <ion-list>
+      <ion-item>
+        <p>{{modalData.HappenedDate}}月无不良事件</p>
+      </ion-item>
+      <ion-item>
+        <p>{{zeroData.zeroHospdepName}}&nbsp; {{modalData.FillStaff}}&nbsp; 于 &nbsp; {{zeroData.zeroSendtoDate}} &nbsp; 上报</p>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-list >
+    <ion-item>
+      <h2>反馈意见</h2>
+      <div item-end *ngIf="showAuditState">{{modalData.AuditFeedback}}</div>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px;margin-top: 5px;" *ngIf="!showAuditState"></div>
+      <textarea *ngIf="!showAuditState" class="multi-text" placeholder="请填写反馈意见" [(ngModel)]="modalFormData.fadeBack"></textarea>
+    </ion-item>
+  </ion-list>
+  <div style="display: flex;" *ngIf="!showAuditState">
+    <button ion-button full style="flex: 1;background: #ff4141" (click)="fadeOrPassAudit(false)">
+      拒绝通过审核
+    </button>
+    <button ion-button full style="flex: 1" (click)="fadeOrPassAudit(true)">
+      通过审核
+    </button>
+  </div>
+</ion-content>
+<ion-footer>
+
+</ion-footer>

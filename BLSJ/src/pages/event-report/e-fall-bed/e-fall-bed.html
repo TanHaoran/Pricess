@@ -1,0 +1,260 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>坠床事件</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-list>
+    <ion-item >
+      <ion-label>发生时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="ddzcData.HappenedDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item >
+      <ion-label>患者住院号</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写住院号" [(ngModel)]="ddzcData.HospNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>患者性别</ion-label>
+      <ion-select  cancelText="取消" okText="确定"  [(ngModel)]="ddzcData.PatientSex">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.patientSex">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>患者年龄</ion-label>
+      <ion-input class="right-input" type="number" placeholder="请输入患者年龄" max="4" [(ngModel)]="ddzcData.PatientAge" (keypress)="removeE($event)" (keyup)="onlyNumber(ddzcData,'PatientAge')"></ion-input>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="ddzcData.PatientAgeUnit">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientAgeUnit">{{item.ECodeTag}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>护理级别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.NursLevel">
+        <ion-option value="{{item.ECodeValue}}"   *ngFor="let item of dataSource.nurseLevel">{{item.ECodeTag}}级</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="patient-diagnose">
+      <ion-label>患者诊断</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写患者诊断" [(ngModel)]="ddzcData.Diagnosis"></textarea>
+      <div style="font-size: 12px;color: #999;">多个诊断之间用逗号隔开</div>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item >
+      <ion-label>评估时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="ddzcData.EvaluateDate" placeholder="最近一次评估" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+    <ion-item >
+      <ion-label>评估分值</ion-label>
+      <ion-input class="right-input" type="number" placeholder="请填写评估分值" [(ngModel)]="ddzcData.EvaluateScore" ng-keyup="clearNoNum(ddzcData,'EvaluateScore')"></ion-input>分
+    </ion-item>
+    <ion-item >
+      <ion-label>是否高危</ion-label>
+      <!-- <ion-toggle [(ngModel)]="sausage" >是</ion-toggle> -->
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.IsEvaluate" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>是否采取防护措施</ion-label>
+      <!-- <ion-toggle [(ngModel)]="sausage" ></ion-toggle> -->
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.IsTakePrevent" >
+        <ion-option  *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>坠床时位置</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.DzPlace" (ngModelChange)="clearOther('DzPlace','DzPlaceQt')">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.fallPlace">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ddzcData.DzPlace==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" clearInput placeholder="请填写" max="100" [(ngModel)]="ddzcData.DzPlaceQt" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>坠床时状态</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.DzState" (ngModelChange)="clearOther('DzState','DzStateQt')">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.fallState">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ddzcData.DzState==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" clearInput placeholder="请填写" max="100" [(ngModel)]="ddzcData.DzStateQt" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>精神状态</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.MentalState" (ngModelChange)="clearOther('MentalState','MentalStateQt')">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.mentalState">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ddzcData.MentalState==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" clearInput placeholder="请填写" max="100" [(ngModel)]="ddzcData.MentalStateQt" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>生活自理能力</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.SelfcareState">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.selfLifeAbility">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>伤害程度</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.Degreeinjury">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.injuryDegree">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>危险因素</ion-label>
+    </ion-item>
+    <div item-content class="checkPanel">
+      <div class="checkTag"  *ngFor="let dr of dataSource.dangerReason" >
+        <div (click)="checkTag(dr,'DzHazardsQt')" [ngClass]="{tagChecked:dr.isChecked}">{{dr.ECodeTag}}</div>
+        <ion-checkbox [(ngModel)]="dr.isChecked" style="display: none"></ion-checkbox>
+      </div>
+      <div style="display: inline-block;" *ngFor="let dr of dataSource.dangerReason">
+        <input class="other" type="text" [(ngModel)]="ddzcData.DzHazardsQt"
+               *ngIf=" dr.ECodeTag === '其他' && dr.isChecked" type="text" placeholder="其他">
+      </div>
+    </div >
+    <ion-item>
+      <ion-label>坠床史</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.DzHistory">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.fallHistory">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-text-toggle [title]  = "'使用药物'"  [data]  = "dataSource.medicine[0]"  (modelChange)="selectMedicine($event)"></ion-text-toggle>
+    <div item-content class="checkPanel" *ngIf="!dataSource.medicine[0].isChecked">
+      <div class="checkTag"  *ngFor="let dr of dataSource.medicine; let i = index" >
+        <div (click)="checkTag(dr,'UseDrugQt')" [ngClass]="{tagChecked:dr.isChecked}" *ngIf="i !== 0">{{dr.ECodeTag}}</div>
+        <ion-checkbox [(ngModel)]="dr.isChecked" style="display: none" *ngIf="i !== 0"></ion-checkbox>
+      </div>
+      <div style="display: inline-block;" *ngFor="let dr of dataSource.medicine; let i = index">
+        <input class="other" type="text" [(ngModel)]="ddzcData.UseDrugQt"
+               *ngIf=" dr.ECodeTag === '其他' && dr.isChecked" type="text" placeholder="其他">
+      </div>
+    </div >
+    <ion-text-toggle [title]  = "'地面情况是否良好'"  [data]  = "dataSource.groundState[0]" [toggleT] = "'是'" [toggleF] = "'否'" (modelChange)="selectGroundState($event)"></ion-text-toggle>
+    <div item-content class="checkPanel" *ngIf="!dataSource.groundState[0].isChecked">
+      <div class="checkTag"  *ngFor="let dr of dataSource.groundState" >
+        <div (click)="checkTag(dr)"   *ngIf="dr.ECodeTag !==  '良好'" [ngClass]="{tagChecked:dr.isChecked}">{{dr.ECodeTag}}</div>
+        <ion-checkbox *ngIf="dr.ECodeTag !==  '良好'" [(ngModel)]="dr.isChecked" style="display: none"></ion-checkbox>
+      </div>
+    </div >
+    <ion-item>
+      <ion-label>室内光线</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.IndoorState">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.indoorState">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>是否有人陪护</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="ddzcData.EscortState">
+        <ion-option *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>床栏使用</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.BedColumnUse">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.bedColumnUse">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>约束</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.Restrain">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.limited">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-text-toggle [title]="'造成的伤害'" [data]="hurtList[0]" (modelChange)="selectHurt($event)"></ion-text-toggle>
+    <div *ngIf="!hurtList[0].isChecked">
+      <ion-item *ngFor="let item of hurtListArr; let i = index">
+      <ion-checkbox [(ngModel)]="item.isChecked"></ion-checkbox >
+        <ion-label *ngIf="item.DamageName !=='228'">{{item.Text}}</ion-label>
+        <ion-input [(ngModel)]="item.DamageSite" class="right-input shortMInput" type="text" placeholder="部位名称"
+                   *ngIf="item.DamageName==='322'|| item.DamageName==='323' || item.DamageName==='324'"></ion-input>
+        <ion-input [(ngModel)]="item.DamageArea" class="right-input shortRInput" type="text" placeholder="面积cm"
+                   *ngIf="item.DamageName==='322'|| item.DamageName==='323' || item.DamageName==='324'"></ion-input>
+        <ion-input [(ngModel)]="item.DamageSite"  class="right-input shortInput"
+                   *ngIf="item.DamageName==='325'|| item.DamageName==='326' || item.DamageName==='112'" type="text"
+                   placeholder="简要描述"></ion-input>
+      </ion-item>
+    </div>
+    <ion-text-toggle [title]="'坠床后的处理'" [data]="dataSource.fallDeal[0]" (modelChange)="selectDeal($event)"></ion-text-toggle>
+    <div item-content class="checkPanel" *ngIf="!dataSource.fallDeal[0].isChecked">
+      <div class="checkTag" *ngFor="let dr of dataSource.fallDeal ; let i = index">
+        <div (click)="checkTag(dr,'DzHandleQt')" [ngClass]="{tagChecked:dr.isChecked}" *ngIf="i !== 0">{{dr.ECodeTag}}</div>
+        <ion-checkbox [(ngModel)]="dr.isChecked" style="display: none" *ngIf="i !== 0"></ion-checkbox>
+      </div>
+      <div style="display: inline-block;" *ngFor="let dr of dataSource.fallDeal ; let i = index">
+        <input class="other" type="text" [(ngModel)]="ddzcData.DzHandleQt" *ngIf=" dr.ECodeTag === '其他' && dr.isChecked" type="text" placeholder="其他">
+      </div>
+    </div>
+  </ion-list>
+  <ion-list>
+    <div class="event-dec">
+      <ion-label>事件描述</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写事件描述" [(ngModel)]="ddzcData.EventDescription"></textarea>
+    </div>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>事件等级</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.EventLevel">
+        <ion-option  *ngFor="let item of dataSource.eventLevel" value="{{item.ECodeValue}}">{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let item of dataSource.eventLevel">
+      <div class="event-explain" *ngIf="item.ECodeValue === ddzcData.EventLevel">{{item.desc}}</div>
+    </div>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>当事人类别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.StaffType" (ngModelChange)="clearOther('StaffType','StaffTypeQt')">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.staffType">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ddzcData.StaffType==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="ddzcData.StaffTypeQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人职称</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.StaffPosition">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.position">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人学历</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.StaffEducation" (ngModelChange)="clearOther('StaffEducation','StaffEduQt')">
+        <ion-option value="{{item.ECodeValue}}"  *ngFor="let item of dataSource.education">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ddzcData.StaffEducation==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="100" [(ngModel)]="ddzcData.StaffEduQt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>当事人工龄</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ddzcData.StaffWorkyears">
+        <ion-option  value="{{item.ECodeValue}}" *ngFor="let item of dataSource.workYear">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <file-upload [data]  = "ddzcData"></file-upload>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" (click)="submit()">提交</button>
+</ion-content>
+

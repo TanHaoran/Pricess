@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>零事件</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item>
+    <p>
+      上月<span>（{{Year}}年{{Month}}月）</span>无不良事件
+    </p>
+  </ion-item>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" *ngIf="!submitDisable" (click)="submit()">零事件上报</button>
+  <button ion-button full *ngIf="submitDisable">已上报</button>
+</ion-content>

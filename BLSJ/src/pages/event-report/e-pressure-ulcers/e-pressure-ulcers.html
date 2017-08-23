@@ -1,0 +1,150 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>压疮评估</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--发生时间-->
+  <ion-list>
+    <ion-item>
+      <ion-label>发生时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="ycData.HappenedDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+    <ion-item >
+      <ion-label>发生来源</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写发生来源" [(ngModel)]="ycData.Occurrence"></ion-input>
+    </ion-item>
+  </ion-list>
+  <!--患者信息-->
+  <ion-list>
+    <ion-item >
+      <ion-label>患者住院号</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请输入患者住院号" [(ngModel)]="ycData.HospNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>患者性别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.PatientSex">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientSex">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label>患者年龄</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写患者年龄" [(ngModel)]="ycData.PatientAge" (keypress)="removeE($event)" (keyup)="onlyNumber(ycData,'PatientAge')"></ion-input>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="ycData.PatientAgeUnit">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.patientAgeUnit">{{item.ECodeTag}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>护理级别</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.NursLevel">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.nurseLevel">{{item.ECodeTag}}级</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="patient-diagnose">
+      <ion-label>患者诊断</ion-label>
+      <div style="border-bottom: 0.55px solid #c8c7cc;margin-bottom: 10px"></div>
+      <textarea class="multi-text" placeholder="请填写患者诊断" [(ngModel)]="ycData.Diagnosis"></textarea>
+      <div style="font-size: 12px;color: #999;">多个诊断之间用逗号隔开</div>
+    </div>
+    <ion-item >
+      <ion-label>身高(cm)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写身高" [(ngModel)]="ycData.PatientHeight"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>体重(kg)</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写体重" [(ngModel)]="ycData.PatientWeight"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>血红蛋白（g/L）</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写血红蛋白" [(ngModel)]="ycData.HemoglobinNum"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>白蛋白（g/L）</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写白蛋白" [(ngModel)]="ycData.AlbuminNum"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>是否水肿</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.IsEdema" >
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.isOrNot" value="{{item.ECodeValue}}">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!--评估-->
+  <ion-list>
+    <ion-item >
+      <ion-label>评估时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" max="{{maxYear}}" min="{{minYear}}" pickerFormat="YYYY-MM-DD HH:mm" [(ngModel)]="ycData.EvaluateDate" cancelText="取消" doneText="确认"></ion-datetime>
+    </ion-item>
+    <ion-item >
+      <ion-label>评估分值</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写评估分值" [(ngModel)]="ycData.EvaluateScore" ></ion-input>分
+    </ion-item>
+    <ion-item>
+      <ion-label>评估量表</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.Assessment" (ngModelChange)="clearOther('Assessment','AssessmentOther')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.assessment">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ycData.Assessment==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input class="right-input" type="text" placeholder="请填写" max="50" [(ngModel)]="ycData.AssessmentOther" ></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>是否高危</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.HighRiskLevel" >
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.isOrNot">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>高危等级</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.Highriskgrade">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.highRiskGrade">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-text-toggle [title]  = "'是否采取防范措施'"  [data]  = "dataSource.takePrevent[0]" [toggleF] = "'有'" [toggleT] = "'无'" (modelChange)="selectTakePrevent($event)"></ion-text-toggle>
+    <div item-content class="checkPanel" *ngIf="!dataSource.takePrevent[0].isChecked">
+      <div class="checkTag"  *ngFor="let dr of dataSource.takePrevent; let i = index" >
+        <div (click)="checkTag(dr,'TakePreventQt')" [ngClass]="{tagChecked:dr.isChecked}" *ngIf="i !== 0">{{dr.ECodeTag}}</div>
+        <ion-checkbox [(ngModel)]="dr.isChecked" style="display: none" *ngIf="i !== 0"></ion-checkbox>
+        <!--<ion-input [(ngModel)]="ycData.TakePreventQt" *ngIf=" dr.ECodeTag === '其他' && dr.isChecked" type="text" placeholder="其他" ></ion-input>-->
+      </div>
+        <div style="display: inline-block;" *ngFor="let dr of dataSource.takePrevent; let i = index">
+          <input class="other" type="text" [(ngModel)]="ycData.TakePreventQt"
+                 *ngIf=" dr.ECodeTag === '其他' && dr.isChecked" type="text" placeholder="其他">
+        </div>
+
+    </div >
+  </ion-list>
+  <!--事件明细-->
+    <div #pListCom>
+      <p-event-list [pEventList]  = "pEventList" ></p-event-list>
+    </div>
+    <ion-list>
+     <ion-item>
+     <button ion-button small (click)="addPList()" style="margin:0 auto">+</button>
+     </ion-item>
+   </ion-list>
+
+  <!--转归-->
+  <ion-list>
+    <ion-item>
+      <ion-label>转归</ion-label>
+      <ion-select  cancelText="取消" okText="确定" [(ngModel)]="ycData.OutcomeState" (ngModelChange)="clearOther('OutcomeState','OutcomeQt')">
+        <ion-option value="{{item.ECodeValue}}" *ngFor="let item of dataSource.outComeState">{{item.ECodeTag}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="ycData.OutcomeState==='112'">
+      <ion-label>其他</ion-label>
+      <ion-input type="text" placeholder="请填写" max="100" [(ngModel)]="ycData.OutcomeQt"></ion-input>
+
+    </ion-item>
+  </ion-list>
+  <!--文件上传-->
+<file-upload [data]  = "ycData"></file-upload>
+  <button ion-button full [ngClass]="{unsubmit:submitDisable}" (click)="submit()">提交</button>
+</ion-content>

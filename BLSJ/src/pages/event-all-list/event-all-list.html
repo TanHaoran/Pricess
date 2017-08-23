@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>不良事件上报记录</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="hideList" style="text-align: center;padding: 10px;">您还未上报过事件</div>
+  <ion-list style="position: relative" *ngFor="let item of tableData" (click)="goAuditDetail(item)">
+    <ion-item >
+      <h2>{{item.EveresName}}</h2>
+      <div item-end>{{item.SendtoDate}}</div>
+
+    </ion-item>
+    <ion-item no-lines>
+      <h2>上报人</h2>
+      <div item-end>{{item.OperatorName}}</div>
+    </ion-item>
+    <ion-item no-lines>
+      <h2>发生时间</h2>
+      <div item-end>{{item.HappenedDate}}</div>
+    </ion-item>
+    <ion-item no-lines>
+      <h2>事件编号</h2>
+      <div item-end>{{item.EveresId}}</div>
+    </ion-item>
+    <img *ngIf="item.ExamineState=='已审核'" style="position: absolute;top:10px;right: 20px; width: 100px" src="../../assets/icon/mark_shtg.png">
+    <img *ngIf="item.ExamineState=='未通过'" style="position: absolute;top:10px;right: 20px; width: 100px" src="../../assets/icon/mark_shwtg.png">
+    <img *ngIf="item.ExamineState=='审核中'" style="position: absolute;top:10px;right: 20px; width: 100px" src="../../assets/icon/mark_shz.png">
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -15,7 +15,7 @@ ion-label {
 	div{
 		margin: 5px;
 		padding: 5px 15px;
-		border: 1px solid #cecdcd;
+		border: 0.5px solid #cecdcd;
 		border-radius: 5px;
     background: #f8f8f8;
     font-size: 1.7rem;
@@ -25,7 +25,7 @@ ion-label {
 .checkPanel{
   padding: 10px;
   background: #ffffff;
-  border-bottom: 0.55px solid #c8c7cc;
+  border-bottom: 0.5px solid #c8c7cc;
 }
 
 
@@ -103,7 +103,7 @@ html{
 .other{
   width: 100%;
   padding: 7px;
-  border: 0.55px solid #c8c7cc;
+  border: 0.5px solid #c8c7cc;
   border-radius: 3px;
   outline: none;
   margin-left: 5px;
@@ -133,32 +133,32 @@ html{
 }
 
 .event-dec{
-  border-top: 0.55px solid #c8c7cc;
-  border-bottom: 0.55px solid #c8c7cc;
+  border-top: 0.5px solid #c8c7cc;
+  border-bottom: 0.5px solid #c8c7cc;
   padding: 0px 16px 10px 16px;
   font-size: 17px;
 }
 .patient-diagnose{
-  border-bottom: 0.55px solid #c8c7cc;
+  border-bottom: 0.5px solid #c8c7cc;
   padding: 0px 16px 10px 16px;
   font-size: 17px;
 }
 //文字较多时改用自定义高度div
 .words-wrap{
-  border-bottom: 0.55px solid #c8c7cc;
+  border-bottom: 0.5px solid #c8c7cc;
   padding: 0px 16px 10px 16px;
   font-size: 17px;
 }
 //添加类别多的时候用
 .paper-wrap{
-  border-top: 0.55px solid #c8c7cc;
+  border-top: 0.5px solid #c8c7cc;
   border-bottom: 0.55px solid #c8c7cc;
   padding: 0px 16px 10px 16px;
   font-size: 17px;
   margin-top: 15px;
 }
 .line-wrap{
-  border-bottom: 0.55px solid #c8c7cc;
+  border-bottom: 0.5px solid #c8c7cc;
   margin-bottom: 10px;
 }
 //多行文本样式
@@ -183,7 +183,7 @@ html{
 }
 .event-explain{
   padding: 1rem;
-  border-bottom: 0.55px solid #c8c7cc;color: #999;
+  border-bottom: 0.5px solid #c8c7cc;color: #999;
 }
 //灰色字体
 .font-gray{
@@ -195,6 +195,53 @@ html{
 }
 .button-full{
   width: 96%;
+}
+
+.list-background{
+  background : color($colors, panel) !important;
+  margin-top: 10px;
+}
+.avatar-img{
+  display: inline-block !important;
+  vertical-align: top;
+  margin-left: 4%;
+  width: 15%;
+}
+.eve-wrap{
+  display: inline-block;
+  padding: 5px;
+  width: 75%;
+  margin-left: 2%;
+}
+.eveTitle{
+  font-size: 17px;
+  color: #333;
+}
+.eveDec{
+  border: 0.5px solid #c8c7cc;
+  border-radius: 2px;
+  margin-top: 15px;
+  padding: 10px 10px;
+  background:#fff;
+  //box-shadow: 0px 0px 0.5px #c8c7cc;
+}
+.eveDecHeader{
+  font-size: 16px;
+}
+.eve-span{
+  color: #999;
+  font-size: 15px;
+  display: inline-block;
+  width: 80px;
+}
+.eve-span-data{
+  color: #666;display: inline-block;
+}
+.eveDecFooter{
+  width: 100%;
+  font-size: 17px;
+  text-align: center;
+  color:#48a2f8;
 }
 // App Global Sass
 // --------------------------------------------------

@@ -19,23 +19,54 @@
 
 <ion-content>
   <div *ngIf="hideList" style="text-align: center;padding: 10px;">暂时还没有待审核的事件</div>
-  <ion-list *ngFor="let item of tableData" (click)="goAuditDetail(item)">
-    <ion-item>
-      <h2>{{item.EveresName}}</h2>
-      <div item-end>{{item.SendtoDate}}</div>
-    </ion-item>
-    <ion-item no-lines>
-      <h2 class="font-gray">上报人</h2>
-      <div class="font-gray" item-end>{{item.OperatorName}}</div>
-    </ion-item>
-    <ion-item class="font-gray" no-lines>
-      <h2 class="font-gray">发生时间</h2>
-      <div class="font-gray" item-end>{{item.HappenedDate}}</div>
-    </ion-item>
-    <ion-item>
-      <h2 class="font-gray">事件编号</h2>
-      <div class="font-gray" item-end>{{item.EveresId}}</div>
-    </ion-item>
+  <ion-list class="list-background" *ngFor="let item of tableData">
+    <!--<ion-item>-->
+    <!--<h2>{{item.EveresName}}</h2>-->
+    <!--<div item-end>{{item.SendtoDate}}</div>-->
+    <!--</ion-item>-->
+    <!--<ion-item no-lines>-->
+    <!--<h2 class="font-gray">上报人</h2>-->
+    <!--<div class="font-gray" item-end>{{item.OperatorName}}</div>-->
+    <!--</ion-item>-->
+    <!--<ion-item class="font-gray" no-lines>-->
+    <!--<h2 class="font-gray">发生时间</h2>-->
+    <!--<div class="font-gray" item-end>{{item.HappenedDate}}</div>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+    <!--<h2 class="font-gray">事件编号</h2>-->
+    <!--<div class="font-gray" item-end>{{item.EveresId}}</div>-->
+    <!--</ion-item>-->
+
+    <div class="avatar-img">
+      <img *ngIf="item.EveresCode=='149'" src="../../assets/icon/blsj_lb_ycpg.png">
+      <img *ngIf="item.EveresCode=='150'" src="../../assets/icon/blsj_lb_qtsj.png">
+      <img *ngIf="item.EveresCode=='152'" src="../../assets/icon/blsj_lb_ddsj.png">
+      <img *ngIf="item.EveresCode=='153'" src="../../assets/icon/blsj_lb_glht.png">
+      <img *ngIf="item.EveresCode=='155'" src="../../assets/icon/blsj_lb_gysj.png">
+      <img *ngIf="item.EveresCode=='156'" src="../../assets/icon/blsj_lb_zybl.png">
+    </div>
+    <div class="eve-wrap">
+      <div class="eveTitle">{{item.EveresName}}</div>
+      <div class="eveDec">
+        <div class="eveDecHeader">
+          <div style="margin-bottom: 10px;">
+            <span class="eve-span">上报时间：</span>&nbsp;<span class="eve-span-data">{{item.SendtoDate}}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <span class="eve-span">上报人：</span>&nbsp;<span class="eve-span-data">{{item.OperatorName}}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <span class="eve-span">发生时间：</span>&nbsp;<span class="eve-span-data">{{item.HappenedDate}}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <span class="eve-span">事件编号：</span>&nbsp;<span class="eve-span-data">{{item.EveresId}}</span>
+          </div>
+          <div class="line-wrap"></div>
+        </div>
+        <div class="eveDecFooter" (click)="goAuditDetail(item)">查看详细</div>
+      </div>
+    </div>
+
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

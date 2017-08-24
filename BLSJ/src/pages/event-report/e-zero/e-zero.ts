@@ -54,7 +54,7 @@ export class EZeroPage {
     let yue = this.getLastMonth();
     let Hospdata = {eud: this.userInfo.HospDepId, yue: yue};
     console.log(Hospdata);
-    //根据上报的零事件发生日期判断是否上报过零事件，时间要去掉一个月
+    //根据上报的零事件发生日期判断是否上报过零事件，时间要向前推一个月
     this.eventReportService.getZeroSubmitedOrNot(Hospdata).subscribe((resData: any) => {
       console.log(resData);
       if (resData) {

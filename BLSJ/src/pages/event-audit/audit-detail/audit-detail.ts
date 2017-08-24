@@ -85,9 +85,9 @@ export class AuditDetailPage {
         for (let i = 0; i < temp.length; i++) {
           let TempObj: any = {};
           TempObj.FileNameUser = temp[i].split('split')[0] + '.' + temp[i].split('.')[temp[i].split('.').length - 1];
-          TempObj.FileNameUserPath=this.homeService.filePath+temp[i].split('split')[0] + '.' + temp[i].split('.')[temp[i].split('.').length - 1];
+          // TempObj.FileNameUserPath=this.homeService.filePath+'FX/'+temp[i].split('split')[0] + '.' + temp[i].split('.')[temp[i].split('.').length - 1];
           TempObj.FileNameServer = temp[i];
-          TempObj.FileNameServerPath = this.homeService.filePath+temp[i];
+          TempObj.FileNameServerPath = this.homeService.filePath+'FX/'+temp[i];
           Temp1.push(TempObj);
         }
         data.FileName = this.util.deepCopy(Temp1);

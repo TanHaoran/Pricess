@@ -184,7 +184,7 @@
         <ion-label *ngIf="item.DamageName !=='228'">{{item.Text}}</ion-label>
         <ion-input [(ngModel)]="item.DamageSite" class="right-input shortMInput" type="text" placeholder="部位名称"
                    *ngIf="item.DamageName==='322'|| item.DamageName==='323' || item.DamageName==='324'"></ion-input>
-        <ion-input [(ngModel)]="item.DamageArea" class="right-input shortRInput" type="text" placeholder="面积cm"
+        <ion-input [(ngModel)]="item.DamageArea" class="right-input shortRInput" type="text" placeholder="面积cm²"
                    *ngIf="item.DamageName==='322'|| item.DamageName==='323' || item.DamageName==='324'"></ion-input>
         <ion-input [(ngModel)]="item.DamageSite"  class="right-input shortInput"
                    *ngIf="item.DamageName==='325'|| item.DamageName==='326' || item.DamageName==='112'" type="text"

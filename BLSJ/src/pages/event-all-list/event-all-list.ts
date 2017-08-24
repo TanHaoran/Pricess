@@ -83,12 +83,10 @@ export class EventAllListPage {
               })
             });
             this.tableData.push(...resData);
-            // this.tableData = resData;
             console.log(this.tableData);
           }
         }
       },err=> {
-        // this.tableData = [];
         this.hideList = true;
       });
     }else{
@@ -127,12 +125,10 @@ export class EventAllListPage {
               })
             });
             this.tableData.push(...resData);
-            // this.tableData = resData;
             console.log(this.tableData);
           }
         }
       }, err => {
-        // this.tableData = [];
         console.log('NETerr');
         this.hideList = true;
       });
